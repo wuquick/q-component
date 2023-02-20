@@ -1,40 +1,42 @@
 <template>
   <Teleport to="body">
-    <div class="q-modal-wrapper" v-if="modelValue">
-      <div class="q-modal-content">
-        <div class="top">{{ title }}</div>
-        <div class="content">
-          <slot name="content"></slot>
-        </div>
-        <div class="bottom">
-          <button @click="confirm">ok</button>
-          <button @click="cancel">cancel</button>
+    <Transition name="q-modal">
+      <div class="q-modal-wrapper" v-if="modelValue">
+        <div class="q-modal-content">
+          <div class="top">{{ title }}</div>
+          <div class="content">
+            <slot name="content"></slot>
+          </div>
+          <div class="bottom">
+            <button @click="confirm">ok</button>
+            <button @click="cancel">cancel</button>
+          </div>
         </div>
       </div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const props = defineProps<{
-  title: string,
-  modelValue: boolean
-}>()
+  title: string;
+  modelValue: boolean;
+}>();
 
-const emit = defineEmits(['confirm', 'cancel', 'update:modelValue'])
+const emit = defineEmits(["confirm", "cancel", "update:modelValue"]);
 
-const showModal = ref(props.modelValue)
+const showModal = ref(props.modelValue);
 
 function confirm() {
-  emit('update:modelValue', false)
-  emit('confirm')
+  emit("update:modelValue", false);
+  emit("confirm");
 }
 function cancel() {
   showModal.value = false;
-  emit('update:modelValue', false)
-  emit('cancel')
+  emit("update:modelValue", false);
+  emit("cancel");
 }
 </script>
 
@@ -75,5 +77,15 @@ function cancel() {
       }
     }
   }
+}
+/* we will explain what these classes do next! */
+.q-modal-enter-active,
+.q-modal-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.q-modal-enter-from,
+.q-modal-leave-to {
+  opacity: 0;
 }
 </style>

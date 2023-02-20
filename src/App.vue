@@ -3,6 +3,7 @@
     <div class="left-menu" @click="chooseComponent">
       <div class="left-menu-item" data-id="q-tree">QTree</div>
       <div class="left-menu-item" data-id="q-modal">QModal</div>
+      <div class="left-menu-item" data-id="q-split">QSplit</div>
     </div>
     <div class="content">
       <component :is="activeComp"></component>
@@ -14,6 +15,7 @@
 import { ref, shallowRef } from "vue";
 import QTreeDemo from "./components/QTree/QTreeDemo.vue";
 import QModalDemo from "./components/QModal/QModalDemo.vue";
+import QSplitDemo from "./components/QSplit/QSplitDemo.vue";
 
 const activeComp = shallowRef();
 function chooseComponent(e: any) {
@@ -24,6 +26,9 @@ function chooseComponent(e: any) {
       break;
     case 'q-modal':
       activeComp.value = QModalDemo;
+      break;
+    case 'q-split':
+      activeComp.value = QSplitDemo;
       break;
     default:
       break;
